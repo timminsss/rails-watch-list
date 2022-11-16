@@ -1,0 +1,11 @@
+<h1> <%= @list.name %> </h1>
+
+<%= link_to "Delete List",
+  list_path(@list),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+%>
+<ul>
+  <%   @list.movies.each do |movie| %>
+  <li><%= Bookmark.find_by(list: @list, movie: movie).comment %></li>
+  <% end %>
+</ul>
