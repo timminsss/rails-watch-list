@@ -4,8 +4,31 @@
   list_path(@list),
   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
 %>
-<ul>
-  <%   @list.movies.each do |movie| %>
-  <li><%= Bookmark.find_by(list: @list, movie: movie).comment %></li>
+<%= link_to "Create New List", new_list_bookmark_path(@list), class: "" %>
+
+<div class="container">
+
+  <div class="d-flex justify-content-between">
+  <% @list.movies.each do |movie| %>
+    <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+    <div class="card rounded-lg p-2 mx-2">
+      <h2><%= bookmark.movie.title %></h2>
+      <p><%= bookmark.movie.rating %>/5 ⭐️</p>
+      <p><%= bookmark.movie.overview %></p>
+      <img src="<%= bookmark.movie.poster_url %>" alt="Poster" width="150px">
+      <div>
+        <i class="fa-solid fa-quote-left"></i>
+        <span class="font-italic"><%= bookmark.comment %></span>
+      </div>
+      <div>
+        <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
+      </div>
+
+
+    </div>
   <% end %>
-</ul>
+
+</div>
+</div>

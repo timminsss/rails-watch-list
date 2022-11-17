@@ -17,12 +17,6 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
   end
 
-  def bookmark
-  end
-
-  def destroy
-  end
-
   private
 
   def movie_params
